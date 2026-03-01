@@ -1,6 +1,6 @@
 /* ============================================================
    EVOLVING ART — Susanne Gabriela
-   Black & white minimalist
+   Black & white minimalist — fully responsive
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
@@ -24,14 +24,13 @@
 
 html, body {
   height: 100%;
-  /* FIX: must NOT be overflow:hidden on body — that kills everything */
   overflow: hidden;
   background: var(--black);
   color: var(--white);
 }
 
 /* ============================================================
-   SIDEBAR
+   SIDEBAR — desktop left panel
    ============================================================ */
 
 .sidebar {
@@ -73,6 +72,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-bottom: 28px;
 }
 
 .social-links a {
@@ -89,6 +89,37 @@ html, body {
 .social-links a:hover {
   color: var(--white);
 }
+
+/* ============================================================
+   ORDER TOGGLE
+   ============================================================ */
+
+.order-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: block;
+}
+
+.order-label {
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--grey-light);
+  text-transform: lowercase;
+  transition: color 0.25s ease;
+  white-space: nowrap;
+}
+
+.order-toggle:hover .order-label {
+  color: var(--white);
+}
+
+/* ============================================================
+   CANVAS LABEL
+   ============================================================ */
 
 .canvas-label {
   font-family: var(--font-sans);
@@ -117,7 +148,6 @@ html, body {
 .timeline-wrapper {
   width: 100%;
   height: 100%;
-  /* FIX: overflow-x:auto is what enables scrollLeft to work */
   overflow-x: auto;
   overflow-y: hidden;
   position: relative;
@@ -128,57 +158,42 @@ html, body {
   cursor: grabbing;
 }
 
-/* Hide scrollbar visually but keep it functional */
 .timeline-wrapper::-webkit-scrollbar { display: none; }
 .timeline-wrapper { scrollbar-width: none; }
 
 /* ============================================================
-   TIMELINE — the horizontal flex strip
-   FIX: must NOT have height:100% — use 100vh so columns can
-   overflow and get their own scroll context
+   TIMELINE — horizontal flex strip
    ============================================================ */
 
 .timeline {
   display: flex;
   align-items: flex-start;
-  /* FIX: explicit height so the wrapper knows how tall to be */
   height: 100vh;
   padding: 0 60px;
   gap: 0;
   user-select: none;
-  /* No will-change:transform here — we use scrollLeft not transform */
 }
 
 /* ============================================================
    PROJECT COLUMN — vertical scroll container
-   FIX: explicit height (100vh) so overflow-y:auto has room to work
    ============================================================ */
 
 .project-column {
   flex: 0 0 520px;
-  /* FIX: must be 100vh (explicit) not 100% (relative — collapses) */
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 60px 50px 80px 50px;
   border-right: 1px solid var(--grey-mid);
-  /* Remove scroll-behavior:smooth — it fights with momentum drag */
 }
 
 .project-column:first-child {
   border-left: 1px solid var(--grey-mid);
 }
 
-/* Thin scrollbar for chapters */
-.project-column::-webkit-scrollbar {
-  width: 2px;
-}
-.project-column::-webkit-scrollbar-track {
-  background: transparent;
-}
-.project-column::-webkit-scrollbar-thumb {
-  background: var(--grey-mid);
-}
+.project-column::-webkit-scrollbar { width: 2px; }
+.project-column::-webkit-scrollbar-track { background: transparent; }
+.project-column::-webkit-scrollbar-thumb { background: var(--grey-mid); }
 
 /* ============================================================
    PROJECT HEADER
@@ -233,7 +248,6 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 56px;
-  /* FIX: add bottom padding so last chapter isn't flush against edge */
   padding-bottom: 60px;
 }
 
@@ -257,14 +271,8 @@ html, body {
   margin-bottom: 16px;
 }
 
-/* Image layouts */
-.chapter-images {
-  margin-bottom: 18px;
-}
-
-.chapter-images.single .img-wrap {
-  width: 100%;
-}
+.chapter-images { margin-bottom: 18px; }
+.chapter-images.single .img-wrap { width: 100%; }
 
 .chapter-images.double {
   display: grid;
@@ -333,9 +341,7 @@ html, body {
   z-index: 50;
 }
 
-.drag-hint.hidden {
-  opacity: 0;
-}
+.drag-hint.hidden { opacity: 0; }
 
 /* ============================================================
    CHAPTER ANIMATION DELAYS
@@ -345,3 +351,127 @@ html, body {
 .chapter:nth-child(2) { animation-delay: 0.2s; }
 .chapter:nth-child(3) { animation-delay: 0.3s; }
 .chapter:nth-child(4) { animation-delay: 0.4s; }
+
+/* ============================================================
+   TABLET  768px–1024px
+   Same 2D layout, tighter columns
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  :root { --sidebar-w: 180px; }
+
+  .artist-name { font-size: 1.3rem; }
+
+  .project-column {
+    flex: 0 0 400px;
+    padding: 48px 32px 60px 32px;
+  }
+
+  .project-title { font-size: 1.6rem; }
+}
+
+/* ============================================================
+   MOBILE  below 768px
+   Sidebar → top bar. Timeline → vertical feed.
+   ============================================================ */
+
+@media (max-width: 767px) {
+
+  /* Let the page scroll naturally */
+  html, body {
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  /* ── TOP BAR ── */
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 20px 18px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .sidebar-top {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .artist-name {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  /* Keep the line break but reduce space */
+  .artist-name br { display: inline; }
+
+  .bio {
+    font-size: 0.72rem;
+    margin-bottom: 12px;
+  }
+
+  .social-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    margin-bottom: 14px;
+  }
+
+  .sidebar-bottom {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 2px;
+  }
+
+  /* ── STAGE ── */
+  .stage {
+    margin-left: 0;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* ── WRAPPER becomes normal flow ── */
+  .timeline-wrapper {
+    overflow: visible;
+    cursor: default;
+    height: auto;
+  }
+
+  .timeline-wrapper.dragging {
+    cursor: default;
+  }
+
+  /* ── TIMELINE stacks vertically ── */
+  .timeline {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+    gap: 0;
+  }
+
+  /* ── COLUMNS full width, natural height ── */
+  .project-column {
+    flex: none;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    overflow-x: visible;
+    padding: 36px 20px 52px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--grey-mid);
+  }
+
+  .project-column:first-child {
+    border-left: none;
+  }
+
+  .project-title { font-size: 1.7rem; }
+
+  /* Hide desktop drag hint on mobile */
+  .drag-hint { display: none; }
+}

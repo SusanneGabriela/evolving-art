@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- LEFT SIDEBAR -->
+  <!-- LEFT SIDEBAR (desktop) / TOP BAR (mobile) -->
   <aside class="sidebar">
     <div class="sidebar-top">
       <h1 class="artist-name">Susanne<br>Gabriela</h1>
@@ -19,6 +19,11 @@
         <a href="https://open.spotify.com/artist/6WfhM4egxDhggHTHzIk7Gg" target="_blank">Songs</a>
         <a href="https://www.instagram.com/susannegabriela/" target="_blank">Instagram</a>
       </nav>
+
+      <!-- ORDER TOGGLE -->
+      <button class="order-toggle" id="orderToggle" aria-label="Toggle project order">
+        <span class="order-label" id="orderLabel">oldest → newest</span>
+      </button>
     </div>
     <div class="sidebar-bottom">
       <span class="canvas-label">Canvas: Painting</span>
@@ -27,20 +32,17 @@
 
   <!-- MAIN STAGE -->
   <main class="stage">
-
-    <!-- HORIZONTAL TIMELINE -->
     <div class="timeline-wrapper">
       <div class="timeline" id="timeline">
 
         <!-- PROJECT 1 -->
-        <div class="project-column" data-project="0">
+        <div class="project-column" data-project="0" data-order="0">
           <div class="project-header">
             <span class="project-year">2022</span>
             <h2 class="project-title">Untitled Study I</h2>
             <p class="project-desc">A first exploration into negative space and the tension between absence and presence.</p>
           </div>
           <div class="chapters">
-
             <div class="chapter">
               <div class="chapter-date">March 4, 2022</div>
               <div class="chapter-images single">
@@ -48,7 +50,6 @@
               </div>
               <p class="chapter-text">Started with nothing but charcoal and an instinct. I didn't know what this would become — I rarely do at the beginning. The blank canvas intimidates me every single time. Today I just made marks. No plan. Just trying to feel where the energy wants to go.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">March 7, 2022</div>
               <div class="chapter-images double">
@@ -57,7 +58,6 @@
               </div>
               <p class="chapter-text">Came back to this after three days away. Distance helps. I could see immediately what wasn't working — the left side felt too heavy, like it was pulling everything off balance. Spent two hours just looking. Then one hour making small corrections. The ratio of looking to making is always higher than I expect.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">March 14, 2022</div>
               <div class="chapter-images triple">
@@ -67,7 +67,6 @@
               </div>
               <p class="chapter-text">This was a big day. Three hours straight, almost no breaks. Something unlocked. I stopped trying to control the outcome and just followed the line wherever it wanted to go. The piece told me what it needed. I'm learning to listen.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">March 22, 2022</div>
               <div class="chapter-images single">
@@ -75,19 +74,17 @@
               </div>
               <p class="chapter-text">Done. Or at least — done enough. There's always a moment when you have to decide to stop. I've learned that a piece is finished when more would be too much. This one asked me to leave it alone. I did.</p>
             </div>
-
           </div>
         </div>
 
         <!-- PROJECT 2 -->
-        <div class="project-column" data-project="1">
+        <div class="project-column" data-project="1" data-order="1">
           <div class="project-header">
             <span class="project-year">2023</span>
             <h2 class="project-title">Threshold</h2>
             <p class="project-desc">On doorways, decisions, and the pause before crossing over.</p>
           </div>
           <div class="chapters">
-
             <div class="chapter">
               <div class="chapter-date">January 11, 2023</div>
               <div class="chapter-images double">
@@ -96,7 +93,6 @@
               </div>
               <p class="chapter-text">New year. New piece. I wanted to work with the concept of thresholds — not doors exactly, but the feeling right before you make a choice you can't undo. Started with paint this time, moving away from pure charcoal. The texture is different. More forgiving in some ways, less in others.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">February 3, 2023</div>
               <div class="chapter-images single">
@@ -104,19 +100,17 @@
               </div>
               <p class="chapter-text">Long break between sessions. Life got in the way — it always does. But maybe the break was necessary. Looking at this with fresh eyes I can see it wants to be darker than I originally imagined. Going to lean into that discomfort.</p>
             </div>
-
           </div>
         </div>
 
-        <!-- PROJECT 3 — ONGOING -->
-        <div class="project-column ongoing" data-project="2">
+        <!-- PROJECT 3 -->
+        <div class="project-column ongoing" data-project="2" data-order="2">
           <div class="project-header">
             <span class="project-year">2024 — ongoing</span>
             <h2 class="project-title">Unnamed</h2>
             <p class="project-desc">This one doesn't have a name yet. That feels right for now.</p>
           </div>
           <div class="chapters">
-
             <div class="chapter">
               <div class="chapter-date">November 2, 2024</div>
               <div class="chapter-images single">
@@ -124,7 +118,6 @@
               </div>
               <p class="chapter-text">Beginning something new without knowing what it is. This is the scariest and most exciting place to be. No concept. No reference images. Just a feeling I'm trying to find the shape of.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">November 19, 2024</div>
               <div class="chapter-images double">
@@ -133,19 +126,17 @@
               </div>
               <p class="chapter-text">Still unnamed. I tried a few titles but they all felt like I was closing a door too early. For now it lives without a name, which means it stays open. I like that.</p>
             </div>
-
           </div>
         </div>
 
-        <!-- PROJECT 4 — NEW -->
-        <div class="project-column" data-project="3">
+        <!-- PROJECT 4 -->
+        <div class="project-column" data-project="3" data-order="3">
           <div class="project-header">
             <span class="project-year">2025</span>
             <h2 class="project-title">After the Rain</h2>
             <p class="project-desc">What remains when the noise clears. A study in quiet aftermath.</p>
           </div>
           <div class="chapters">
-
             <div class="chapter">
               <div class="chapter-date">February 8, 2025</div>
               <div class="chapter-images single">
@@ -153,7 +144,6 @@
               </div>
               <p class="chapter-text">Started this one on a grey morning after two weeks of not touching anything. Sometimes the pause is the piece. I came back to the studio and just sat for an hour before picking up a brush. The silence before making feels different each time — this one felt like permission.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">February 15, 2025</div>
               <div class="chapter-images triple">
@@ -163,7 +153,6 @@
               </div>
               <p class="chapter-text">Big session today. Three images because I kept stopping to photograph — something was shifting quickly and I didn't want to lose the in-between states. The middle one is my favourite so far. It has a quality I haven't managed to hold onto before. Trying not to chase it too hard.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">March 1, 2025</div>
               <div class="chapter-images double">
@@ -172,19 +161,17 @@
               </div>
               <p class="chapter-text">Two weeks between sessions again. I think this piece needs distance — it asks to be left alone between visits. Each time I return I can see it more clearly. Today I made only small marks. Decisive but quiet. Like punctuation, not sentences.</p>
             </div>
-
           </div>
         </div>
 
-        <!-- PROJECT 5 — NEW, ONGOING -->
-        <div class="project-column ongoing" data-project="4">
+        <!-- PROJECT 5 -->
+        <div class="project-column ongoing" data-project="4" data-order="4">
           <div class="project-header">
             <span class="project-year">2025 — ongoing</span>
             <h2 class="project-title">Frequency</h2>
             <p class="project-desc">Exploring what it means to make work in response to sound. Music as a starting point, not a subject.</p>
           </div>
           <div class="chapters">
-
             <div class="chapter">
               <div class="chapter-date">August 14, 2025</div>
               <div class="chapter-images single">
@@ -192,7 +179,6 @@
               </div>
               <p class="chapter-text">This one started with headphones on and eyes closed. I wanted to see if I could translate a specific feeling — not the music itself, but the place it takes you to. The first session was mostly failure. But useful failure. I learned what this piece doesn't want to be.</p>
             </div>
-
             <div class="chapter">
               <div class="chapter-date">September 3, 2025</div>
               <div class="chapter-images double">
@@ -201,13 +187,11 @@
               </div>
               <p class="chapter-text">Second session. Listening to the same track on repeat — something about the repetition loosens something in me. The two images side by side show a before and after from today. The shift is subtle but I can feel it. This piece is going to take a long time. That feels right.</p>
             </div>
-
           </div>
         </div>
 
       </div><!-- end timeline -->
 
-      <!-- Drag hint -->
       <div class="drag-hint" id="dragHint">
         <span>drag to explore</span>
         <svg width="40" height="10" viewBox="0 0 40 10"><path d="M0 5 H35 M30 1 L39 5 L30 9" stroke="currentColor" stroke-width="1" fill="none"/></svg>
