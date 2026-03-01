@@ -1,0 +1,334 @@
+/* ============================================================
+   EVOLVING ART — Susanne Gabriela
+   Black & white minimalist
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --black: #0a0a0a;
+  --white: #f4f2ee;
+  --grey-dark: #1a1a1a;
+  --grey-mid: #3a3a3a;
+  --grey-light: #888;
+  --sidebar-w: 220px;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--black);
+  color: var(--white);
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--grey-mid);
+  z-index: 100;
+  background: var(--black);
+}
+
+.artist-name {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.bio {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--grey-light);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-links a {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.social-links a:hover {
+  color: var(--white);
+}
+
+.canvas-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey-mid);
+}
+
+/* ============================================================
+   STAGE
+   ============================================================ */
+
+.stage {
+  margin-left: var(--sidebar-w);
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ============================================================
+   TIMELINE WRAPPER & HORIZONTAL SCROLL
+   ============================================================ */
+
+.timeline-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+}
+
+.timeline-wrapper.dragging {
+  cursor: grabbing;
+}
+
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  height: 100%;
+  padding: 0 60px;
+  gap: 0;
+  will-change: transform;
+  user-select: none;
+}
+
+/* ============================================================
+   PROJECT COLUMN
+   ============================================================ */
+
+.project-column {
+  flex: 0 0 520px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 60px 50px 80px 50px;
+  border-right: 1px solid var(--grey-mid);
+  scroll-behavior: smooth;
+}
+
+.project-column:first-child {
+  border-left: 1px solid var(--grey-mid);
+}
+
+/* Custom scrollbar for chapters */
+.project-column::-webkit-scrollbar {
+  width: 2px;
+}
+.project-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+.project-column::-webkit-scrollbar-thumb {
+  background: var(--grey-mid);
+}
+
+/* ============================================================
+   PROJECT HEADER
+   ============================================================ */
+
+.project-header {
+  margin-bottom: 52px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--grey-mid);
+}
+
+.project-year {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  margin-bottom: 12px;
+}
+
+.project-title {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 14px;
+  letter-spacing: 0.01em;
+}
+
+.ongoing .project-title::after {
+  content: ' ·';
+  color: var(--grey-light);
+  font-style: italic;
+}
+
+.project-desc {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--grey-light);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   CHAPTERS
+   ============================================================ */
+
+.chapters {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.chapter {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chapter-date {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey-mid);
+  margin-bottom: 16px;
+}
+
+/* Image layouts */
+.chapter-images {
+  margin-bottom: 18px;
+}
+
+.chapter-images.single .img-wrap {
+  width: 100%;
+}
+
+.chapter-images.double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.chapter-images.triple {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.chapter-images.triple .img-wrap:first-child {
+  grid-column: 1 / -1;
+}
+
+.img-wrap {
+  overflow: hidden;
+  background: var(--grey-dark);
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.img-wrap:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+.chapter-text {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #bbb;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   DRAG HINT
+   ============================================================ */
+
+.drag-hint {
+  position: absolute;
+  bottom: 36px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey-mid);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.drag-hint.hidden {
+  opacity: 0;
+}
+
+/* ============================================================
+   CHAPTER ANIMATION DELAYS
+   ============================================================ */
+
+.chapter:nth-child(1) { animation-delay: 0.1s; }
+.chapter:nth-child(2) { animation-delay: 0.2s; }
+.chapter:nth-child(3) { animation-delay: 0.3s; }
+.chapter:nth-child(4) { animation-delay: 0.4s; }
+
+/* ============================================================
+   SCROLLBAR HIDE for timeline wrapper
+   ============================================================ */
+
+.timeline-wrapper::-webkit-scrollbar { display: none; }
