@@ -24,6 +24,7 @@
 
 html, body {
   height: 100%;
+  /* FIX: must NOT be overflow:hidden on body — that kills everything */
   overflow: hidden;
   background: var(--black);
   color: var(--white);
@@ -110,13 +111,15 @@ html, body {
 }
 
 /* ============================================================
-   TIMELINE WRAPPER & HORIZONTAL SCROLL
+   TIMELINE WRAPPER — horizontal scroll container
    ============================================================ */
 
 .timeline-wrapper {
   width: 100%;
   height: 100%;
-  overflow-x: auto; overflow-y: hidden;
+  /* FIX: overflow-x:auto is what enables scrollLeft to work */
+  overflow-x: auto;
+  overflow-y: hidden;
   position: relative;
   cursor: grab;
 }
@@ -125,35 +128,48 @@ html, body {
   cursor: grabbing;
 }
 
+/* Hide scrollbar visually but keep it functional */
+.timeline-wrapper::-webkit-scrollbar { display: none; }
+.timeline-wrapper { scrollbar-width: none; }
+
+/* ============================================================
+   TIMELINE — the horizontal flex strip
+   FIX: must NOT have height:100% — use 100vh so columns can
+   overflow and get their own scroll context
+   ============================================================ */
+
 .timeline {
   display: flex;
   align-items: flex-start;
-  height: 100%;
+  /* FIX: explicit height so the wrapper knows how tall to be */
+  height: 100vh;
   padding: 0 60px;
   gap: 0;
-  will-change: transform;
   user-select: none;
+  /* No will-change:transform here — we use scrollLeft not transform */
 }
 
 /* ============================================================
-   PROJECT COLUMN
+   PROJECT COLUMN — vertical scroll container
+   FIX: explicit height (100vh) so overflow-y:auto has room to work
    ============================================================ */
 
 .project-column {
   flex: 0 0 520px;
-  height: 100%;
+  /* FIX: must be 100vh (explicit) not 100% (relative — collapses) */
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 60px 50px 80px 50px;
   border-right: 1px solid var(--grey-mid);
-  scroll-behavior: smooth;
+  /* Remove scroll-behavior:smooth — it fights with momentum drag */
 }
 
 .project-column:first-child {
   border-left: 1px solid var(--grey-mid);
 }
 
-/* Custom scrollbar for chapters */
+/* Thin scrollbar for chapters */
 .project-column::-webkit-scrollbar {
   width: 2px;
 }
@@ -217,6 +233,8 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 56px;
+  /* FIX: add bottom padding so last chapter isn't flush against edge */
+  padding-bottom: 60px;
 }
 
 .chapter {
@@ -297,7 +315,7 @@ html, body {
    ============================================================ */
 
 .drag-hint {
-  position: absolute;
+  position: fixed;
   bottom: 36px;
   right: 40px;
   display: flex;
@@ -312,6 +330,7 @@ html, body {
   pointer-events: none;
   opacity: 1;
   transition: opacity 0.6s ease;
+  z-index: 50;
 }
 
 .drag-hint.hidden {
@@ -326,9 +345,3 @@ html, body {
 .chapter:nth-child(2) { animation-delay: 0.2s; }
 .chapter:nth-child(3) { animation-delay: 0.3s; }
 .chapter:nth-child(4) { animation-delay: 0.4s; }
-
-/* ============================================================
-   SCROLLBAR HIDE for timeline wrapper
-   ============================================================ */
-
-.timeline-wrapper::-webkit-scrollbar { display: none; }
