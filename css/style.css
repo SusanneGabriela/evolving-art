@@ -95,6 +95,12 @@ html, body {
    ============================================================ */
 
 .order-toggle {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
   background: none;
   border: none;
   padding: 0;

@@ -13,7 +13,6 @@
 
   if (!wrapper || !timeline) return;
 
-  // ── State ────────────────────────────────────────────────────
   let isDragging   = false;
   let startX       = 0;
   let startScrollL = 0;
@@ -24,7 +23,6 @@
   let hintHidden   = false;
   let newestFirst  = false;
 
-  // ── Helpers ──────────────────────────────────────────────────
   function isMobile() {
     return window.innerWidth < 768;
   }
@@ -37,20 +35,24 @@
   }
 
   // ── Order toggle ─────────────────────────────────────────────
-  // Physically reverses the DOM order of project columns so
-  // CSS :first-child border rules still apply correctly.
+  // Always sort by data-order first, then reverse if needed.
+  // This prevents double-reverse bugs on repeated clicks.
   function applyOrder() {
     const cols = Array.from(timeline.querySelectorAll('.project-column'));
-    if (newestFirst) {
-      cols.reverse().forEach(col => timeline.appendChild(col));
-      orderLabel.textContent = 'newest \u2192 oldest';
-    } else {
-      cols.sort((a, b) => a.dataset.order - b.dataset.order)
-          .forEach(col => timeline.appendChild(col));
-      orderLabel.textContent = 'oldest \u2192 newest';
-    }
 
-    // Scroll back to start after reorder
+    // Always start from canonical order (ascending data-order)
+    cols.sort((a, b) => parseInt(a.dataset.order) - parseInt(b.dataset.order));
+
+    // Then reverse if newest first
+    if (newestFirst) cols.reverse();
+
+    // Re-append in correct order
+    cols.forEach(col => timeline.appendChild(col));
+
+    // Update label
+    orderLabel.textContent = newestFirst ? 'newest → oldest' : 'oldest → newest';
+
+    // Reset scroll position
     if (!isMobile()) {
       wrapper.scrollLeft = 0;
     } else {
@@ -73,7 +75,7 @@
     animationId = requestAnimationFrame(momentum);
   }
 
-  // ── Mouse drag (desktop only) ────────────────────────────────
+  // ── Mouse drag ───────────────────────────────────────────────
   wrapper.addEventListener('mousedown', (e) => {
     if (isMobile()) return;
     isDragging   = true;
@@ -107,8 +109,7 @@
     animationId = requestAnimationFrame(momentum);
   });
 
-  // ── Touch drag (tablet horizontal timeline only) ─────────────
-  // On mobile (<768px) the layout is vertical so native scroll handles it.
+  // ── Touch (tablet horizontal only) ──────────────────────────
   wrapper.addEventListener('touchstart', (e) => {
     if (isMobile()) return;
     startX       = e.touches[0].clientX;
@@ -137,7 +138,7 @@
     animationId = requestAnimationFrame(momentum);
   });
 
-  // ── Wheel / trackpad (desktop only) ─────────────────────────
+  // ── Wheel / trackpad ─────────────────────────────────────────
   wrapper.addEventListener('wheel', (e) => {
     if (isMobile()) return;
     const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
@@ -149,13 +150,11 @@
       wrapper.scrollLeft += e.deltaX;
       hideHint();
     } else if (!col) {
-      // Vertical on empty wrapper area → scroll timeline
       e.preventDefault();
       cancelAnimationFrame(animationId);
       wrapper.scrollLeft += e.deltaY;
       hideHint();
     }
-    // Vertical inside a column → browser handles naturally
   }, { passive: false });
 
   // ── Prevent image ghost drag ─────────────────────────────────
